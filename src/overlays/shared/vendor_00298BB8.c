@@ -2994,7 +2994,193 @@ void func_L15_002BEFF8(struct Moby_BEFF8 *moby) {
         }
     }
 }
-INCLUDE_ASM("asm/overlays", func_L15_002CC858);
+typedef struct L15AlarmMoby {
+    char pad0[0x10];
+    float position[3];
+    char pad1[4];
+    unsigned char state;
+    char pad2[0x32];
+    unsigned char animation;
+    char pad3[0x1C];
+    unsigned char status;
+    char pad4[7];
+    void *data;
+    char pad5[0x14];
+    int w90;
+} L15AlarmMoby;
+
+typedef struct L15AlarmData {
+    int mode;
+    int idx;
+    int f8;
+    int c;
+    int d10;
+    float f14;
+    char blk18[16];
+} L15AlarmData;
+
+extern int D_L15_00161B3C_gp SDATA(D_L15_00161B3C);
+extern int D_L15_00161B40_gp SDATA(D_L15_00161B40);
+extern int D_L15_00161B44_gp SDATA(D_L15_00161B44);
+extern int func_L15_002A3A48(int idx, void *pos);
+extern void func_L15_002CCFC0(void *arg);
+
+/* Sentrybot alarm update (moby class 408, levels 15 and 17): turn, watch for the hero, raise the alarm. */
+void func_L15_002CC858(L15AlarmMoby *m) {
+    L15AlarmData *d = m->data;
+    float f;
+    int r;
+
+    switch (m->state) {
+    case 0: {
+        int mode = d->mode;
+
+        D_L15_00161B3C_gp = 0;
+        D_L15_00161B40_gp = 0;
+        D_L15_00161B44_gp = 0;
+        if (mode == 2) {
+            m->state = 6;
+            if (m->animation != 4)
+                func_00213DE0(m, 4, 0, 0);
+        } else {
+            m->state = 3;
+            if (m->animation != 2)
+                func_00213DE0(m, 2, 0, 0);
+        }
+        break;
+    }
+    case 1:
+        f = func_001F9FA8(d->f14);
+        r = func_001FA8A8(0x801414BC, 0x801414DC, (f + 1.0f) * 0.5f);
+        m->w90 = r;
+        d->f14 = func_001FA748(d->f14, D_0015EE6C * 6.2831855f);
+        if (!d->f8)
+            goto tail;
+        if (D_L15_0015F6A8 == 2)
+            break;
+        if (d->mode != 1) {
+            m->state = 5;
+            break;
+        }
+        m->state = 6;
+        if (m->animation != 4)
+            func_00213DE0(m, 4, 0, func_001F9850(30));
+        break;
+    case 2:
+        if (m->status & 2) {
+            m->state = 3;
+            if (m->animation != 2)
+                func_00213DE0(m, 2, 0, func_001F9850(10));
+        }
+        break;
+    case 3:
+        if (!d->f8)
+            goto tail;
+        if (D_L15_0015F6A8 == 2)
+            break;
+        m->state = 4;
+        if (m->animation != 3)
+            func_00213DE0(m, 3, 0, func_001F9850(10));
+        break;
+    case 4:
+        if (!(m->status & 2))
+            break;
+        if (d->f8 && D_L15_0015F6A8 != 2) {
+            if (d->mode == 1) {
+                m->state = 7;
+                if (m->animation != 5)
+                    func_00213DE0(m, 5, 0, func_001F9850(10));
+            } else {
+                if (m->animation != 8)
+                    func_00213DE0(m, 8, 0, func_001F9850(10));
+                m->state = 5;
+            }
+            break;
+        }
+        if (m->animation != 8)
+            func_00213DE0(m, 8, 0, func_001F9850(10));
+        m->state = 10;
+        break;
+    case 5:
+        if ((m->status & 2) && m->animation != 0)
+            func_00213DE0(m, 0, 0, func_001F9850(10));
+        f = func_001F9FA8(d->f14);
+        r = func_001FA8A8(0x801414DC, 0x8004048C, (f + 1.0f) * 0.5f);
+        m->w90 = r;
+        d->f14 = func_001FA748(d->f14, D_0015EE6C * 12.566371f);
+        if (func_001F9908(d->blk18) == 0 && D_L15_0015F6A8 != 2)
+            break;
+        func_L15_002CCE50((char *)m, 0);
+        d->f8 = 0;
+        if (m->animation != 8)
+            func_00213DE0(m, 8, 0, func_001F9850(10));
+        m->state = 10;
+        break;
+    case 6:
+        if (!d->f8)
+            goto tail;
+        m->state = 7;
+        if (m->animation != 5)
+            func_00213DE0(m, 5, 0, func_001F9850(10));
+        break;
+    case 7:
+        if (!(m->status & 2))
+            break;
+        m->state = 8;
+        if (m->animation != 6)
+            func_00213DE0(m, 6, 0, func_001F9850(10));
+        break;
+    case 8: {
+        float *pos = m->position;
+        char *h2 = D_0013E633 + 0xE9D;
+        float tmp[4];
+
+        if (func_001F9D48(pos, (float *)h2) < 16.0f && D_L15_0015F6A8 != 2 && func_001F9908(&d->c)) {
+            qcopy(tmp, pos);
+            tmp[2] = tmp[2] + 1.0f;
+            if (func_L00_001EFFF0(tmp, h2 + 0x50, 2, 0, 0) == 0 && func_L15_002A3A48(d->idx, pos))
+                d->c = d->d10;
+        }
+        r = func_001F9908(d->blk18);
+        if (r != 0 || D_L15_0015F6A8 == 2) {
+            func_L15_002CCE50((char *)m, 0);
+            d->f8 = 0;
+            m->state = 9;
+            if (m->animation != 7)
+                func_00213DE0(m, 7, 0, func_001F9850(10));
+        }
+        break;
+    }
+    case 9:
+        if (!(m->status & 2))
+            break;
+        if (d->mode == 2) {
+            m->state = 6;
+            if (m->animation != 4)
+                func_00213DE0(m, 4, 0, func_001F9850(10));
+        } else {
+            m->state = 10;
+            if (m->animation != 8)
+                func_00213DE0(m, 8, 0, func_001F9850(10));
+        }
+        break;
+    case 10:
+        if (!(m->status & 2))
+            break;
+        m->state = 2;
+        if (m->animation != 1)
+            func_00213DE0(m, 1, 0, func_001F9850(10));
+        break;
+    }
+    if (d->f8)
+        D_L15_00161B40_gp = 1;
+tail:
+    if (D_L15_00161B3C_gp != D_L15_0015F6B0) {
+        D_L15_00161B3C_gp = D_L15_0015F6B0;
+        func_L15_002CCFC0(m);
+        D_L15_00161B40_gp = 0;
+    }
+}
 extern short D_L15_00161B44;
 
 // Sets the two fields of the moby's data (and of matching mobys in the level list) from a flag.
