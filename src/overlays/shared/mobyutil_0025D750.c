@@ -21,7 +21,97 @@ void func_L02_00265E58(char *moby) {
     }
     *(short *)(moby + 0x1C) = 0;
 }
-INCLUDE_ASM("asm/overlays", func_L02_00265E88);
+extern void func_L00_001FF4B0(void *, void *, float);
+extern void func_001F9BD8(void *, void *, void *);
+extern int func_L00_001EFFF0(void *, void *, int, int, int);
+extern float func_001F9D10(void *, void *);
+extern float func_00214D88(float *p1, float *p2, float a, float b, float c, float d);
+extern void func_L00_00258DB0(void *, float, float);
+extern float func_002140F8(float, float);
+extern void func_001F9C30(void *, void *, float);
+extern unsigned char *func_L00_0026C0D0(void *pos, void *vel, unsigned char flags, float size);
+extern int func_001F9938(void *);
+extern float func_001F9878(float);
+extern int func_001FA898(float);
+extern void func_L00_0026E438(char *, char *, int);
+extern int D_L02_0015F6B0 MACRO_ADDR;
+extern char D_L02_001744E0[];
+extern float D_0015EE70 MACRO_ADDR;
+extern float D_0015EE6C MACRO_ADDR;
+extern short D_L02_00160150;
+extern short D_L02_00160154;
+extern short D_L02_00160158;
+extern short D_L02_0016015C;
+extern short D_L02_00160160;
+
+typedef int u128 __attribute__((mode(TI)));
+typedef union {
+    u128 q;
+    float f[4];
+} V65E88 __attribute__((aligned(16)));
+
+/* Spawns a burst of particles from pos along dir (fewer when blocked), keeping the third in a free slot, then a periodic puff. */
+void func_L02_00265E88(char **slots, char *pos, void *dir, float r) {
+    V65E88 org, end, step, p30, p40;
+    float f50, f54;
+    float d, k;
+    char keep;
+    int n, total, i, j, c;
+    unsigned char *p;
+
+    keep = (D_L02_0015F6B0 & 3) == 0;
+    f54 = 0.0f;
+    f50 = 0.0f;
+    qcopy(&org, pos);
+    func_L00_001FF4B0(&step, dir, r + 0.75f);
+    func_001F9BD8(&end, &step, &org);
+    if (func_L00_001EFFF0(&org, &end, 2, 0, 0)) {
+        d = func_001F9D10(&org, D_L02_001744E0) - 0.75f;
+        if (d < 0.0f) {
+            d = 0.0f;
+        }
+    } else {
+        d = r;
+    }
+    func_00214D88(&f50, &f54, d, 1.0f, D_0015EE70 * 48.0f, *(float *)&D_L02_00160150 * D_0015EE6C);
+    func_L00_001FF4B0(&step, &step, f54);
+    n = *(int *)&D_L02_00160154;
+    total = *(int *)&D_L02_00160158;
+    if (d < 4.0f) {
+        n = 1;
+    }
+    for (i = 0; i < total + n; i++) {
+        k = d / r;
+        func_L00_00258DB0(&p40, 0.0f, ((*(float *)&D_L02_0016015C - *(float *)&D_L02_00160160) * k + *(float *)&D_L02_00160160) * D_0015EE6C);
+        func_001F9BD8(&p40, &p40, &step);
+        func_001F9C30(&p30, &step, func_002140F8(0.0f, 1.0f));
+        func_001F9BD8(&p30, &p30, &org);
+        c = 0;
+        if (i < n) {
+            c = 1;
+        }
+        p = func_L00_0026C0D0(&p30, &p40, c, d);
+        if (i == 2 && keep) {
+            for (j = 0; j < 7; j++) {
+                char **e = &slots[j];
+                if (*e == 0) {
+                    *e = (char *)p;
+                    break;
+                }
+            }
+        }
+    }
+    if (func_001F9938((char *)slots + 0x1C)) {
+        int t = func_001FA898(func_001F9878(func_002140F8(10.0f, 30.0f)));
+        float a = D_0015EE6C + D_0015EE6C;
+        *(short *)((char *)slots + 0x1C) = t;
+        func_L00_00258DB0(&p40, 0.0f, a);
+        func_001F9C30(&p30, &step, func_002140F8(0.5f, 0.1f));
+        func_001F9BD8(&p30, &p30, &p40);
+        p30.f[3] = 0.0f;
+        func_L00_0026E438(pos, (char *)&p30, 0);
+    }
+}
 extern int func_L00_001F2BE8(float, void *, int, int, int);
 
 // Retires up to seven slot entries whose effect finished, spawning a burst for live ones.
