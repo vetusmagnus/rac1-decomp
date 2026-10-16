@@ -7,7 +7,161 @@
 #include "hero.h"
 #include "moby.h"
 
-INCLUDE_ASM("asm/overlays", func_L15_001FFED0);
+extern void func_L00_00232EF0(void);
+extern void func_L00_00211D28(void);
+extern void func_L15_00204AC0(void);
+extern void func_L15_0021D7A8(void);
+extern void func_L00_00217698(void);
+extern void func_L00_00205B00(void);
+extern void func_L00_00209088(void);
+extern void func_L00_00208260(void);
+extern void func_L00_00208070(void);
+extern void func_L00_00248EF8(void *);
+extern void func_L00_00205FF0(void);
+extern void func_L00_00206808(void);
+extern void func_L00_00250800(void *, int, void *);
+extern void func_L00_00208318(void);
+extern int func_001F9850_FED0(int) __asm__("func_001F9850");
+extern float func_001FA888(int);
+extern float func_001F9FA8_FED0(float) __asm__("func_001F9FA8");
+extern int func_001FA898(float);
+extern int func_001FA8A8(int, int, float);
+extern void func_L00_00217570(int, int);
+extern void func_L00_002091D8(void);
+extern void func_L00_0025805C(void *);
+extern unsigned char D_0013E633[];
+extern unsigned char D_0013D5DD[];
+extern unsigned char D_0015EEB0[] MACRO_ADDR;
+extern int D_L15_0015F6B0 MACRO_ADDR;
+extern short D_0015EF18;
+extern float D_L15_0017C0EC;
+extern float D_L15_0017C24C;
+
+typedef struct {
+    char pad0[0x80];
+    char a80[1];
+    char pad1[0x300 - 0x81];
+    int i300;
+    char pad2[0x12E7 - 0x304];
+    unsigned char b12E7;
+    char pad3[0x1D50 - 0x12E8];
+    char a1D50[0x30];
+    char a1D80[0x10];
+    char pad4[0x2080 - 0x1D90];
+    char *p2080;
+    char pad5[0x20A4 - 0x2084];
+    unsigned char b20A4;
+    char pad6[0x20B8 - 0x20A5];
+    int i20B8;
+    char pad7[0x22DC - 0x20BC];
+    short s22DC;
+    short s22DE;
+    short s22E0;
+    short pad22E2;
+    int c22E4;
+} GS_FED0;
+
+/* Hero frame update for the help/panel states: runs the update chain, handles state 2 (slot 6 matrix copy) and state 3 (pulsing tint colour, fade colour, sound trigger). */
+void func_L15_001FFED0(void) {
+    int h2, v2, t;
+    int v, h, i, r16, r17, r18, c20, color;
+    float f0, f20, ang;
+    float m[4];
+
+    func_L00_00232EF0();
+    func_L00_00211D28();
+    func_L15_00204AC0();
+    func_L15_0021D7A8();
+    if (((GS_FED0 *)(D_0013E633 + 0xE1D))->b20A4 == 0) return;
+    func_L00_00217698();
+    func_L00_00205B00();
+    if (((GS_FED0 *)(D_0013E633 + 0xE1D))->b20A4 == 0) return;
+    func_L00_00209088();
+    func_L00_00208260();
+    func_L00_00208070();
+    func_L00_00248EF8(((GS_FED0 *)(D_0013E633 + 0xE1D))->a80);
+    if (((GS_FED0 *)(D_0013E633 + 0xE1D))->b20A4 == 2) {
+        if (D_0015EEB0[3] != 0) {
+            D_L15_0017C0EC = *(float *)&D_0015EF18 * 1.4f;
+        }
+        func_L00_00205FF0();
+        func_L00_00206808();
+        if ((*(unsigned short *)(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080 + 0x34) ^ 1) & 1) {
+            func_L00_00250800(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080, 6, m);
+            qcopy(((GS_FED0 *)(D_0013E633 + 0xE1D))->a1D80, m);
+            func_L00_00208318();
+        }
+    }
+    if (((GS_FED0 *)(D_0013E633 + 0xE1D))->b20A4 == 3) {
+        if (D_0015EEB0[1] != 0) {
+            D_L15_0017C24C = 1.9f;
+        }
+        c20 = 0x80;
+        v = func_001F9850_FED0(0xAA);
+        h = ((GS_FED0 *)(D_0013E633 + 0xE1D))->s22E0;
+        if (h == 2) {
+            v = func_001F9850_FED0(0x32);
+        } else if (h == 1) {
+            v = func_001F9850_FED0(0x5A);
+        }
+        f0 = func_001FA888(v);
+        ang = (float)(D_L15_0015F6B0 % v) / f0;
+        ang = ang + ang;
+        ang = ang * 3.14159274f;
+        f20 = func_001F9FA8_FED0(ang + -3.14159274f);
+        r16 = func_001FA898(f20 * 20.0f) + 0x32;
+        r17 = func_001FA898(f20 * 70.0f) + 0xB4;
+        t = func_001FA898(f20 * 10.0f);
+        *(unsigned short *)(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080 + 0x34) |= 0x10;
+        if (r16 >= 0x100) r16 = 0xFF;
+        if (r17 >= 0x100) r17 = 0xFF;
+        r18 = t + 0x14;
+        if (((GS_FED0 *)(D_0013E633 + 0xE1D))->s22E0 == 2) {
+            color = (c20 << 24) | (r18 << 16) | (((r16 + (int)((unsigned int)r16 >> 31)) >> 1) << 8) | r17;
+        } else {
+            color = (c20 << 24) | (r18 << 16) | (r17 << 8) | r16;
+        }
+        *(int *)(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080 + 0x90) = func_001FA8A8(*(int *)(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080 + 0x90), color, 0.1f);
+        for (i = 0; i < 3; i++) {
+            func_L00_00250800(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080, i, ((GS_FED0 *)(D_0013E633 + 0xE1D))->a1D50 + i * 0x10);
+        }
+        c20 = 0x30;
+        r18 = *(unsigned char *)(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080 + 0x92);
+        r17 = *(unsigned char *)(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080 + 0x91);
+        r16 = *(unsigned char *)(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080 + 0x90);
+        h2 = ((GS_FED0 *)(D_0013E633 + 0xE1D))->s22DE;
+        if (h2 != 0) {
+            f20 = func_001FA888(h2);
+            f20 = f20 / func_001FA888(0x12);
+            c20 = func_001FA898(f20 * (float)c20);
+        }
+        ((GS_FED0 *)(D_0013E633 + 0xE1D))->c22E4 = (c20 << 24) | (r18 << 16) | (r17 << 8) | r16;
+        func_L00_00208318();
+        ((GS_FED0 *)(D_0013E633 + 0xE1D))->s22E0 = 0;
+        if (((GS_FED0 *)(D_0013E633 + 0xE1D))->b20A4 == 3) {
+            v2 = ((GS_FED0 *)(D_0013E633 + 0xE1D))->i20B8;
+            if (v2 != 0 && v2 != 0x1F) {
+                if (((GS_FED0 *)(D_0013E633 + 0xE1D))->s22DE == 0) {
+                    func_L00_00217570(0x19, 0);
+                    ((GS_FED0 *)(D_0013E633 + 0xE1D))->s22DE = 0x12;
+                    ((GS_FED0 *)(D_0013E633 + 0xE1D))->s22DC = 1;
+                }
+            } else {
+                GS_FED0 *g = (GS_FED0 *)(D_0013E633 + 0xE1D);
+                int e = g->b12E7;
+                g->i20B8 = 0;
+                if (e != 0 && g->i300 != 0 && *(unsigned char *)(D_0013D5DD + 7) != 0 &&
+                    g->s22DE == 0) {
+                    func_L00_00217570(0x19, 0);
+                    g->s22DE = 0x12;
+                    g->s22DC = 1;
+                }
+            }
+        }
+    }
+    func_L00_002091D8();
+    func_L00_0025805C(((GS_FED0 *)(D_0013E633 + 0xE1D))->p2080);
+}
 extern unsigned char D_0013E633[];
 extern unsigned char D_0013E15A[];
 extern void func_L00_00207948(int, int);
