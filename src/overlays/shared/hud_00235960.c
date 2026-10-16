@@ -531,7 +531,45 @@ void func_L00_00238148(HudElem *e) {
         e->unk7C = 0x1E;
     }
 }
-INCLUDE_ASM("asm/overlays", func_L00_002381D0);
+extern int D_L00_0015F840 SDATA(D_L00_0015F840);
+extern int D_L00_0015F844 SDATA(D_L00_0015F844);
+extern void func_00201640(int, int, int, int, long, int);
+extern int func_00200198(int, int);
+extern void func_L00_0023C458(int, int, int, int, int, int);
+
+/* Draws a HUD gauge frame: a background bar, a filled bar and tick marks from the element's position and size. */
+int func_L00_002381D0(HudElem *e) {
+    int pos[2];
+    int x0, x1, y, i, hs;
+
+    pos[0] = e->unk50;
+    pos[1] = e->unk54;
+    e->w = D_L00_0015F840;
+    e->h = D_L00_0015F844;
+    func_L00_00236400(e, &pos[0], &pos[1]);
+    func_L00_00236468(e, &pos[0], &pos[1], e->unk6C, 0);
+    x0 = (pos[0] + e->unk48) << 4;
+    y = (pos[1] + e->unk4A) << 4;
+    x0 += (D_L00_0015F840 * 0xD0) / 64;
+    y += (D_L00_0015F844 * 0xA0) / 256;
+    x1 = x0 + (D_L00_0015F840 * 0x260) / 64;
+    func_00201640(x0, y, x1, y + (D_L00_0015F844 * 0xEA0) / 256, 0x80000000, 1);
+    hs = D_L00_0015F844 * 0xEA0;
+    y = (pos[1] + e->unk4A) << 4;
+    y += (D_L00_0015F844 * 0xF40) / 256;
+    func_00201640(x0, y, x1, y - (e->unk74 * hs) / (e->unk08 << 8), 0x80829E00, 1);
+    for (i = 1; i < e->unk74; i++) {
+        int ts;
+        y = (pos[1] + e->unk4A) << 4;
+        y += (D_L00_0015F844 * 0xF40) / 256;
+        ts = D_L00_0015F844 * 0xEA0;
+        y -= (i * ts) / (e->unk08 << 8);
+        y -= 0x10;
+        func_00201640(x0, y, x1, y + 0x20, 0x80000000, 1);
+    }
+    func_L00_0023C458(func_00200198(*(int *)e, 0), pos[0] + e->unk48, pos[1] + e->unk4A, D_L00_0015F840, D_L00_0015F844, 0x80);
+    return e->w;
+}
 typedef struct {
     char pad_00[0x48];
     short x48;

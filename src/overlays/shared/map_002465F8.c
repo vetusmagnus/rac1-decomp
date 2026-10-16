@@ -663,8 +663,34 @@ int func_L00_00247478(int reverse) {
     return -1;
 }
 INCLUDE_ASM("asm/overlays", func_L00_002474C4);
-INCLUDE_ASM("asm/overlays", func_L00_00247620);
+/* Returns the slot (0..4) whose active entry holds key, or -1. */
+int func_L00_00247620(int key) {
+    int i;
+    RenderArchiveState *s = &D_L00_001842F0;
+    int *keys = &s->slot_28c;
+
+    for (i = 0; i < 5; i++) {
+        if (keys[i - 5] != 0 && keys[i] == key) {
+            return i;
+        }
+    }
+    return -1;
+}
 INCLUDE_ASM("asm/overlays", func_L00_00247650);
-INCLUDE_ASM("asm/overlays", func_L00_002477A0);
+extern int *D_L00_00160360 MACRO_ADDR;
+
+/* Returns the index of key in the zero-terminated id list (at most 20 entries), or -1. */
+int func_L00_002477A0(int key) {
+    int *list = D_L00_00160360;
+    int *p = list;
+    int i;
+
+    for (i = 0; *p != 0 && i < 20; i++, p++) {
+        if (list[i] == key) {
+            return i;
+        }
+    }
+    return -1;
+}
 INCLUDE_ASM("asm/overlays", func_L00_002477D0);
 INCLUDE_ASM("asm/overlays", func_L00_00248EF8);
