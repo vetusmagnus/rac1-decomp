@@ -2209,7 +2209,75 @@ void func_L00_002DF150(void) {
     *(int *)&D_L00_00161C14 = 1;
     D_L00_001E6358[0] = 0;
 }
-INCLUDE_ASM("asm/overlays", func_L00_002DF168);
+extern Hero hero_2DF168 __asm__("D_0013F450");
+typedef int u128_DF168 __attribute__((mode(TI)));
+extern float D_L00_00161C54 MACRO_ADDR;
+extern char D_L00_001670D0[];
+extern char D_L00_001E6290[];
+extern char D_L00_001E6280[];
+extern char D_L00_00161C30[] MACRO_ADDR;
+extern char D_L00_00161C40[] MACRO_ADDR;
+extern float D_L00_00161C50 MACRO_ADDR;
+typedef struct { int pad[5]; int f14; } E04_DF168;
+extern E04_DF168 D_L00_001E4FD0_x[] __asm__("D_L00_001E4FD0");
+extern short D_L00_00161C24;
+extern short D_L00_00161C28;
+
+// Builds the camera matrices and resets the camera effect state.
+void func_L00_002DF168(char *a, char *b) {
+    u128_DF168 s[7];
+    char *v;
+    int i, st, j;
+    if (*(int *)&D_L00_00161C10 == 0) return;
+    D_L00_00161C54 = 1.7f;
+    *(int *)&D_L00_00161C10 = 0;
+    st = hero_2DF168.state.current;
+    if ((st == 0x1E || st == 1) && (hero_2DF168.moby->flags & 1)) {
+        qcopy((char *)s, D_L00_001670D0);
+        qcopy((char *)s + 0x10, D_L00_001670D0 + 0x10);
+        qcopy((char *)s + 0x20, D_L00_001670D0 + 0x20);
+        v = (char *)s + 0x20;
+    } else {
+        if (hero_2DF168.unk22C8 == 1) {
+            func_001F9C30(s, a + 0xD0, -1.0f);
+            qcopy((char *)s + 0x10, a + 0xC0);
+            qcopy((char *)s + 0x20, a + 0xE0);
+            v = (char *)s + 0x20;
+        } else {
+            qcopy((char *)s, &hero_2DF168.unk640[0]);
+            qcopy((char *)s + 0x10, &hero_2DF168.unk640[1]);
+            qcopy((char *)s + 0x20, &hero_2DF168.unk640[2]);
+            v = (char *)s + 0x20;
+        }
+    }
+    func_L00_001FF4B0((char *)s + 0x30, s, D_L00_00161C54);
+    func_L00_001FF4B0((char *)s + 0x40, v, 1.0f);
+    qcopy(D_L00_001E6290, b);
+    D_L00_001E6358[0] = 0;
+    for (i = 1; i < 10; i++) {
+        func_001F9BD8(D_L00_001E6290 + i * 0x10, D_L00_001E6280 + i * 0x10, (char *)s + 0x30);
+        D_L00_001E6358[i] = 0;
+    }
+    func_001F9BC0(D_L00_00161C30);
+    s[5] = 0;
+    s[6] = 0;
+    *(float *)((char *)s + 0x58) = 0.1f;
+    *(float *)((char *)s + 0x5C) = 1.0f;
+    *(float *)((char *)s + 0x60) = 1.0f;
+    *(float *)((char *)s + 0x6C) = 1.0f;
+    {
+        float f = func_00214158();
+        func_002156E0(D_L00_00161C40, (char *)s + 0x50, f, (char *)s + 0x60);
+        D_L00_00161C50 = f;
+    }
+    *(float *)&D_L00_00161C20 = 0.006f;
+    *(int *)&D_L00_00161C24 = 0;
+    *(int *)&D_L00_00161C28 = 0;
+    if (*(int *)&D_L00_00161C14 != 0) {
+        *(int *)&D_L00_00161C14 = 0;
+        for (j = 199; j >= 0; j--) D_L00_001E4FD0_x[j].f14 = 0;
+    }
+}
 INCLUDE_ASM("asm/overlays", func_L00_002DF410);
 extern void func_L00_002DED98(void);
 extern void func_001F49B0(void (*)(void), int);

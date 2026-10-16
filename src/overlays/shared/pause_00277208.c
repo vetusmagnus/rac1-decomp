@@ -4,7 +4,136 @@
 #include "vector.h"
 
 INCLUDE_ASM("asm/overlays", func_L00_00277208);
-INCLUDE_ASM("asm/overlays", func_L00_002777C0);
+typedef struct {
+    int state;
+    char *page;
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+    int unk18;
+    unsigned char pad1C[0x30 - 0x1C];
+    int items[4];
+    unsigned char pad40[0xCC - 0x40];
+    int unkCC;
+    unsigned char padD0[0x110 - 0xD0];
+    int closing;
+} Menu_2777C0;
+typedef struct {
+    unsigned char pad0[0xC];
+    void (*close)(void *, int);
+} Obj_2777C0;
+typedef struct {
+    unsigned char pad0[0x74];
+    int f74;
+    unsigned char pad78[0x80 - 0x78];
+    int f80;
+    int f84;
+} Hud_2777C0;
+typedef struct {
+    unsigned char pad0[0xC];
+    unsigned char count;
+    unsigned char padD[0x48 - 0xD];
+    int slots[1];
+} Cnt_2777C0;
+typedef struct {
+    unsigned char pad0[0x18];
+    Hud_2777C0 *hud;
+} HudG_2777C0;
+
+extern Menu_2777C0 M_2777C0 __asm__("D_L00_001BA070");
+extern HudG_2777C0 D_L00_0017E5D8_2777C0 __asm__("D_L00_0017E5D8");
+extern Cnt_2777C0 *D_L00_00197680_2777C0 __asm__("D_L00_00197680");
+extern char *D_L00_00197680[] NOT_SDA;
+extern int D_L00_00173F40_2777C0[] __asm__("D_L00_00173F40");
+typedef struct { unsigned char pad[0x20B8]; int items[4]; } Hero_2777C0;
+extern Hero_2777C0 D_0013F450_2777C0 __asm__("D_0013F450");
+extern unsigned char D_0014171B NOT_SDA;
+extern int D_0015EE98_2777C0 __asm__("D_0015EE98") MACRO_ADDR;
+extern int D_0015EF78_2777C0 SDATA(D_0015EF78);
+extern int D_L00_0015F6BC MACRO_ADDR;
+extern void *D_L00_001BA220_2777C0[] __asm__("D_L00_001BA220");
+
+extern void func_00234AC8(int);
+extern void func_002348E8_2777C0(void) __asm__("func_002348E8");
+extern void func_001FF958_2777C0(int, int, int) __asm__("func_001FF958");
+extern void func_L00_00235CA0_2777C0(int) __asm__("func_L00_00235CA0");
+extern void *func_002267C0_2777C0(void *) __asm__("func_002267C0");
+extern int func_L00_00235790_2777C0(void) __asm__("func_L00_00235790");
+extern int func_001F9850(int);
+extern int func_L00_002367A8_2777C0(int, int) __asm__("func_L00_002367A8");
+extern int func_001FFB38_2777C0(int, int, void *, void *, void *, void *, int) __asm__("func_001FFB38");
+extern void func_002349B8_2777C0(void) __asm__("func_002349B8");
+extern void func_L00_0023A658_2777C0(void) __asm__("func_L00_0023A658");
+extern void func_L00_0023A690_2777C0(void) __asm__("func_L00_0023A690");
+extern void func_L00_0023A788_2777C0(void) __asm__("func_L00_0023A788");
+
+/* Closes the page menu: runs the page objects' close handlers, writes back items, restores the HUD, frees the preview mobys. */
+void func_L00_002777C0(void) {
+    int i, x, o;
+
+    if (M_2777C0.closing < 10) {
+        return;
+    }
+    func_00234AC8(1);
+    func_002348E8_2777C0();
+    if (M_2777C0.page != 0) {
+        int i;
+        for (i = 0; i < 14; i++) {
+            int o = i * 4;
+            Obj_2777C0 *obj = *(Obj_2777C0 **)(M_2777C0.page + o + 0x44);
+            if (obj != 0 && obj->close != 0) {
+                obj->close(obj, 0);
+            }
+        }
+        M_2777C0.page = 0;
+    }
+    {
+        int j;
+        for (j = 0; j < 4; j++) {
+            int c = ((int *)(&D_0014171B + 0x45))[j];
+            x = M_2777C0.items[j];
+            if (c != x) {
+                D_0013F450_2777C0.items[j] = x ? x : 0x26;
+            }
+        }
+    }
+    D_0015EF78_2777C0 = M_2777C0.unk18;
+    func_001FF958_2777C0(0, D_L00_0017E5D8_2777C0.hud->f74, 0);
+    func_L00_00235CA0_2777C0(2);
+    if (D_L00_0017E5D8_2777C0.hud->f80 != 0) {
+        func_L00_00235CA0_2777C0(3);
+    }
+    if (D_L00_0017E5D8_2777C0.hud->f84 != 0) {
+        func_L00_00235CA0_2777C0(4);
+    }
+    for (i = 0; i < 14; i++) {
+        D_L00_001BA220_2777C0[i] = func_002267C0_2777C0(D_L00_001BA220_2777C0[i]);
+    }
+    o = func_L00_00235790_2777C0();
+    func_L00_002367A8_2777C0(o, func_001F9850(0xB4));
+    o = func_001FFB38_2777C0(2, 0x754E, func_L00_0023A658_2777C0, func_L00_0023A690_2777C0,
+                             func_L00_0023A788_2777C0, &D_0015EE98_2777C0, 9999999);
+    func_L00_002367A8_2777C0(o, func_001F9850(0xB4));
+    M_2777C0.state = 0x14;
+    M_2777C0.unk14 = 2;
+    {
+        int k;
+        k = M_2777C0.unkCC;
+        if (k < *(unsigned char *)(D_L00_00197680[0] + 0xC)) {
+            do {
+                int o = k * 4;
+                *(int *)(D_L00_00197680[0] + o + 0x48) = 0;
+                k++;
+            } while (k < *(unsigned char *)(D_L00_00197680[0] + 0xC));
+        }
+    }
+    D_L00_00197680[0][0xC] = M_2777C0.unkCC;
+    D_L00_0015F6BC = 1;
+    D_L00_00173F40_2777C0[4] &= 0x7FFFFFFF;
+    func_002349B8_2777C0();
+    func_00234AC8(1);
+}
 typedef unsigned int PQ __attribute__((mode(TI), aligned(16)));
 
 typedef struct Mth Mth;
