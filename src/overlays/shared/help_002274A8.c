@@ -1314,7 +1314,90 @@ int func_L01_00233F58(int a0) {
     }
     return 1;
 }
-INCLUDE_ASM("asm/overlays", func_L01_00234970);
+typedef int u128_34970 __attribute__((mode(TI)));
+extern void func_L00_001FF500(void *, void *, float);
+extern float func_L00_00213A08(void *);
+extern void func_L00_00234420(float *, float *, float);
+extern void func_L00_00233F88(void *, void *, float);
+
+// Accelerates the hero's air velocity toward the stick direction, clamped to the step.
+void func_L01_00234970(float step) {
+    float v[4];
+    float w[4];
+    float u[4];
+    char *g = (char *)D_0013E633 + 0xE1D;
+    switch (*(unsigned char *)(g + 0x20B3)) {
+    case 0: {
+        float ang = *(float *)(g + 0x180);
+        float spd = *(float *)(g + 0x190);
+        float d, l1, l2;
+        char *h;
+        if (*(int *)(g + 0x208C) == 4) {
+            if (*(short *)(g + 0x30A) != 0) goto heavy;
+            if (*(short *)(g + 0x4A4) != 0 && *(unsigned char *)(g + 0x257) != 0)
+                spd = D_0015EE6C * 2.1f;
+        }
+        {
+            char *g2 = (char *)D_0013E633 + 0xE1D;
+            if (*(short *)(g2 + 0x30A) != 0) {
+                char *g2b;
+            heavy:
+                g2b = (char *)D_0013E633 + 0xE1D;
+                if (*(int *)(g2b + 0x2084) == 0xE && D_0015EE6C < spd)
+                    spd = D_0015EE6C;
+            }
+        }
+        {
+            char *g3 = (char *)D_0013E633 + 0xE1D;
+            v[0] = func_001F9F90(ang) * spd;
+            v[1] = func_001F9FA8(ang) * spd;
+            v[2] = *(float *)(g3 + 0xE8);
+            d = -(*(float *)(g3 + 0xE0) * v[0] + *(float *)(g3 + 0xE4) * v[1]);
+            l1 = func_001F9CE8(v);
+            l2 = func_001F9CE8(g3 + 0xE0);
+        }
+        if (l1 == 0.0f) d = 0.0f;
+        else if (l2 == 0.0f) d = 0.0f;
+        else {
+            d /= l1;
+            d /= l2;
+        }
+        {
+            char *g4 = (char *)D_0013E633 + 0xE1D;
+            d += 1.0f;
+            d *= 1.5f;
+            if (*(int *)(g4 + 0x2084) == 0x81) {
+                if (1.7f < d) d = 1.7f;
+                if (d < 1.0f) d = 1.0f;
+            } else {
+                if (3.0f < d) d = 3.0f;
+                if (d < 1.0f) d = 1.0f;
+            }
+        }
+        h = (char *)&D_0013F450 + 0xE0;
+        step = step * d;
+        func_001F9BF0(v, v, h);
+        if (step < func_001F9CE8(v)) func_L00_001FF500(v, v, step);
+        func_001F9BD8(h, h, v);
+        *(u128_34970 *)w = *(u128_34970 *)(h + 0x840);
+        {
+            float t = func_L00_00213A08(w);
+            char *g5 = (char *)&D_0013F450;
+            *(float *)(g5 + 0x194) = *(float *)(g5 + 0x168) - t;
+        }
+        break;
+    }
+    case 1:
+    case 2: {
+        char *h = (char *)&D_0013F450 + 0xE0;
+        u[0] = func_L00_00234250((float *)h);
+        func_00214D28(*(float *)(h + 0xB0), step, u);
+        func_L00_00234420((float *)h, (float *)h, 0.0f);
+        func_L00_00233F88(h, h, u[0]);
+        break;
+    }
+    }
+}
 typedef u32 u128 __attribute__((mode(TI), aligned(16)));
 typedef struct {
     s32 w0;
