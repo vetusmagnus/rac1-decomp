@@ -2113,7 +2113,51 @@ int func_00129C78(void *arg0) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/core_text", func_00129CA0);
+/* Computes a record's 64-bit time/position into o1 (with an odd-product correction), copies t+0x20 to o3 and packs t's flag words into o4. */
+long func_00129CA0(void *s_, void *t_, void *o1_, void *o3_, void *o4_) {
+    char *s = s_;
+    char *t = t_;
+    long *o1 = o1_;
+    long *o3 = o3_;
+    long *o4 = o4_;
+    long v;
+    long r;
+    long x;
+    long y;
+    long z;
+
+    if (*(int *)(s + 0x70) != 0 && *(long *)(t + 0x18) < 0 && *(int *)(s + 0x80) >= 0) {
+        int base = *(int *)(s + 0x80);
+        long a = *(long *)(s + 0x88);
+        int ai = a;
+        long p;
+        int c;
+        int odd;
+        p = (ai & 1) * (*(long *)(s + 0x78) & 1);
+        c = *(int *)(s + 0x90);
+        odd = p * (c & 1);
+        *o1 = base + ((int)((*(long *)(s + 0x78) * ai) >> 1) + odd);
+        if ((ai & 1) * (*(long *)(s + 0x78) & 1))
+            *(int *)(s + 0x90) = c + 1;
+    } else {
+        *o1 = *(long *)(t + 0x18);
+    }
+    if (*(int *)(s + 0xF8) == 2) {
+        v = *(long *)(s + 0xF0);
+        if (v >= 0) {
+            *o1 = v;
+            *(int *)(s + 0xF8) = 0;
+            *(long *)(s + 0xF0) = -1;
+        }
+    }
+    *o3 = *(long *)(t + 0x20);
+    x = ((long)*(int *)(t + 0x40) << 5) | ((long)*(int *)(t + 0x3C) << 6);
+    y = ((long)*(int *)(t + 0x34) << 8) | *(int *)(t + 0x2C);
+    z = ((long)*(int *)(t + 0x38) << 7) | ((long)*(int *)(t + 0x30) << 3);
+    r = y | x | z;
+    *o4 = r;
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/core_text", func_00129E30);
 

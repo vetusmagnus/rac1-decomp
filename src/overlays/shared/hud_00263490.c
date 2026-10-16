@@ -28,7 +28,149 @@ void func_L05_00263490(HudElemX *e) {
     }
     func_L00_00236610(e);
 }
-INCLUDE_ASM("asm/overlays", func_L05_00263500);
+extern float func_00214D28(float *p, float target, float maxstep);
+extern int func_001FA898_r(float) __asm__("func_001FA898");
+extern int func_001F9850(int);
+extern char D_0013E633[];
+extern Hero hero_002670A0 __asm__("D_0013F450");
+extern int D_L05_0015FB8C MACRO_ADDR;
+extern int D_L05_0015FBA4 MACRO_ADDR;
+extern int D_L05_0015FB90 MACRO_ADDR;
+extern int D_L05_0015FB98 MACRO_ADDR;
+extern int D_L05_0015FBB8 MACRO_ADDR;
+extern int D_L05_0015FBB0 MACRO_ADDR;
+extern int D_L05_0015FBAC MACRO_ADDR;
+extern int D_L05_0015FBA8 MACRO_ADDR;
+extern short D_L05_0015F95C;
+
+/* HUD element update for the level 5 challenge: eases the shown count toward the target and runs the start / running / result states. */
+void func_L05_00263500(char *a) {
+    float cur;
+    unsigned char *u;
+    char *H;
+    int i;
+    int *p;
+    int *q;
+    int v;
+
+    cur = (float)*(int *)(a + 0x74);
+    func_00214D28(&cur, (float)**(int **)(a + 0xC), 6.0f);
+    u = (unsigned char *)(a + 0x70);
+    *(int *)(a + 0x74) = func_001FA898_r(cur);
+    switch (u[2]) {
+    case 0: {
+        char *H = D_0013E633 + 0xE1D;
+        if (*(short *)(H + 0x30E) < 6) {
+            return;
+        }
+        v = *(int *)(H + 0x70C);
+        if (!((float)v >= 1.0f)) {
+            return;
+        }
+        D_L05_0015FB8C = v;
+        D_L05_0015FB90 = 0;
+        {
+            int k;
+            for (k = 3; k >= 0; k--) {
+                (&D_L05_0015FB98)[k] = 0;
+            }
+        }
+        u[2] = 1;
+        u[1] = *(unsigned char *)&D_L05_0015F95C;
+        u[0] = 0;
+        break;
+    }
+    case 1: {
+        char *T;
+        char *H;
+        char *G;
+        if (*(unsigned char *)(a + 0x70) < 10) {
+            *(unsigned char *)(a + 0x70) += 1;
+        }
+        if (u[1] != 0) {
+            u[1]--;
+        }
+        T = D_0013E633 + 0xE1D;
+        D_L05_0015FB90 = *(int *)(T + 0x6F0);
+        {
+            int k;
+            for (k = 0; k < 4; k++) {
+                (&D_L05_0015FB98)[k] = ((int *)(T + 0x6E0))[k];
+            }
+        }
+        H = D_0013E633 + 0xE1D;
+        if (D_L05_0015FB8C < *(int *)(H + 0x70C)) {
+            D_L05_0015FB8C = *(int *)(H + 0x70C);
+            u[1] = *(unsigned char *)&D_L05_0015F95C;
+        }
+        if (*(int *)(H + 0x300) == 0) {
+            if (!(*(int *)(H + 0x2084) >= 0x6D && *(int *)(H + 0x2084) <= 0x6F)) {
+                return;
+            }
+        }
+        D_L05_0015FBB8 = 0;
+        *(int *)(H + 0x70C) = 0;
+        *(int *)(H + 0x6F0) = 0;
+        {
+            int k;
+            for (k = 3; k >= 0; k--) {
+                ((int *)(H + 0x6E0))[k] = 0;
+            }
+        }
+        G = (char *)&hero_002670A0;
+        {
+            int k;
+            for (k = 2; k >= 0; k--) {
+                ((int *)(G + 0x700))[k] = 0;
+            }
+        }
+        {
+        char *K = D_0013E633 + 0xE1D;
+        if (*(int *)(K + 0x2084) == 0x6B) {
+            if (D_L05_0015FB90 >= 3) {
+                D_L05_0015FBB4 = D_L05_0015FBB0;
+                D_L05_0015FBB0 = D_L05_0015FBAC;
+                D_L05_0015FBAC = D_L05_0015FBA8;
+                D_L05_0015FBA8 = -1;
+            }
+            u[2] = 3;
+            u[1] = *(unsigned char *)&D_L05_0015F95C;
+            u[0] = func_001F9850(0x78);
+        } else {
+            u[2] = 2;
+            u[1] = *(unsigned char *)&D_L05_0015F95C;
+            u[0] = func_001F9850(0x3C);
+        }
+        }
+        break;
+    }
+    case 2:
+    case 3:
+        if (u[0] == 0) {
+            D_L05_0015FBB8 = 0;
+            D_L05_0015FB8C = 0;
+            D_L05_0015FB90 = 0;
+            {
+                int k;
+                for (k = 3; k >= 0; k--) {
+                    (&D_L05_0015FB98)[k] = 0;
+                }
+            }
+            u[2] = 0;
+            u[0] = 0;
+        } else if (u[2] == 3 && u[0] == func_001F9850(0x6E)) {
+            int n = D_L05_0015FBB8;
+            H = D_0013E633 + 0xE1D;
+            *(int *)(H + 0x8A8) += n;
+            *(int *)(H + 0x864) += n * 5;
+            if ((int)((float)func_001F9850(0x11) * 60.0f) < *(int *)(H + 0x864)) {
+                *(int *)(H + 0x864) = (int)((float)func_001F9850(0x11) * 60.0f);
+            }
+        }
+        u[0]--;
+        break;
+    }
+}
 extern int func_00116248_002670A0(char *, const char *, ...) __asm__("func_00116248");
 extern float func_001FA888(int);
 extern int func_001F9850(int);
