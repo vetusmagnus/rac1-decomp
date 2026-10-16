@@ -208,7 +208,6 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_L00_00203F08`](functional/func_L00_00203F08.c) | functional | 24 | ? | - |
 | [`func_L00_00205110`](game/func_L00_00205110.c) | game | 68 | ? | - |
 | [`func_L00_00205FF0`](game/func_L00_00205FF0.c) | game | 1232 | ? | - |
-| [`func_L00_002068C8`](functional/func_L00_002068C8.c) | functional | 2388 | ? | - |
 | [`func_L00_0020B060`](shared/func_L00_0020B060.c) | shared | 684 | SIZE ours 680 / retail 684 | - |
 | [`func_L00_0020DAF8`](game/func_L00_0020DAF8.c) | game | 36 | ? | - |
 | [`func_L00_0020E0A8`](functional/func_L00_0020E0A8.c) | functional | 64 | ? | - |
@@ -354,7 +353,6 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_L07_00313D28`](l07_umbris/func_L07_00313D28.c) | l07_umbris | 1148 | SIZE ours 1120 / retail 1148 | - |
 | [`func_L08_00211A38`](functional/func_L08_00211A38.c) | functional | 48 | ? | - |
 | [`func_L08_00259040`](functional/func_L08_00259040.c) | functional | 116 | ? | - |
-| [`func_L08_002D55E0`](functional/func_L08_002D55E0.c) | functional | 2504 | ? | - |
 | [`func_L08_002D7010`](functional/func_L08_002D7010.c) | functional | 1860 | ? | - |
 | [`func_L08_002DBF68`](functional/func_L08_002DBF68.c) | functional | 3480 | ? | - |
 | [`func_L08_002DF758`](l08_batalia/func_L08_002DF758.c) | l08_batalia | 324 | SIZE ours 320 / retail 324 | - |
@@ -386,5 +384,4 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_L15_002ED3C4`](l15_quartu/func_L15_002ED3C4.c) | l15_quartu | 92 | SIZE ours 84 / retail 92 | - |
 | [`func_L18_002EBBF0`](l18_veldin2/func_L18_002EBBF0.c) | l18_veldin2 | 1236 | SIZE ours 1200 / retail 1236 | - |
 | [`func_L18_002F1444`](l18_veldin2/func_L18_002F1444.c) | l18_veldin2 | 204 | SIZE ours 200 / retail 204 | - |
-| [`func_L18_002F9D48`](functional/func_L18_002F9D48.c) | functional | 3732 | ? | - |
 | [`func_L18_002FDCC4`](l18_veldin2/func_L18_002FDCC4.c) | l18_veldin2 | 92 | SIZE ours 88 / retail 92 | - |
