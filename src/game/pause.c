@@ -6944,7 +6944,143 @@ int func_00224040(char *arg0) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/text", func_002243E8);
+extern void func_0022F4A0(int arg0);
+extern unsigned char D_0013E15A[];
+
+/* Load-slot menu handler (func_00224040's sibling): with a load armed it either aborts or starts the sound fade and loads; otherwise pad handling with slot selection. */
+int func_002243E8(char *arg0) {
+    char *g = D_001D5F70;
+    int old = *(int *)(arg0 + 0x40);
+
+    if (*(int *)(g + 0x128) != 0) {
+        char *d = D_0013D390;
+
+        if (*(int *)(d + 0xDC) >= 3) {
+            return 0;
+        }
+        if (*(int *)(d + 0xE4) >= 0) {
+            return 0;
+        }
+        if (*(int *)(g + 0x154) < 11) {
+            return 0;
+        }
+        *(int *)(g + 0x128) = 0;
+        if (*(int *)(d + 0xEC) != 0 || *(int *)(d + 0x1C) != 0 || D_0015FF4C != 0) {
+            char *d2 = D_0013D390;
+            char *g4 = D_001D5F70;
+
+            D_0015EFB4_m |= 0x100;
+            *(int *)(d2 + 0xFC) = 0;
+            func_001FBC80(3, *(void **)(g4 + 4), 0);
+            return 0;
+        }
+        {
+            int t = D_0015EEF0;
+            char *s = D_0013E650;
+
+            *(int *)(d + 0xFC) = 1;
+            *(int *)(s + 0x48) = t * 8 / 10;
+            *(int *)(s + 0x4C) = D_0015EEEC_1DB30;
+            *(int *)(s + 0x50) = t * 8 / 10;
+            *(int *)(s + 0x54) = t * 7 / 10;
+            *(int *)(s + 0x58) = t * 7 / 10;
+            *(int *)(s + 0x5C) = t;
+            func_0012E380_1DB30(D_0015EEE8_1DB30 == 0);
+            func_0022F4A0(D_0015EE84);
+            *(short *)D_0013E15A = 0;
+            return 0;
+        }
+    }
+    {
+        char *pad = D_0013CA40;
+        if (*(int *)(pad + 0x1C4) & 0xD00) {
+            if (*(int *)(g + 0x124) == 0) {
+                return 1;
+            }
+        }
+    }
+    {
+        char *pad = D_0013CA40;
+        if (*(int *)(pad + 0x1C4) & 0x10) {
+            char *g2 = D_001D5F70;
+            int t = *(int *)(*(char **)(g2 + 4) + 0x38);
+            if (t != 0) {
+                *(int *)(g2 + 8) = t;
+                return 0;
+            }
+            if (*(int *)(g2 + 0x124) == 0) {
+                return -1;
+            }
+        }
+    }
+    if (D_0015EFB0_m != 0x10 && D_0015EFB0_m != 1) {
+        char *g2 = D_001D5F70;
+        *(int *)(g2 + 8) = *(int *)(*(char **)(g2 + 4) + 0x38);
+        return 0;
+    }
+    {
+        char *d = D_0013D390;
+        int p;
+        int x;
+
+        if (*(int *)(d + 0xDC) >= 3) {
+            return 0;
+        }
+        if (*(int *)(d + 0xE4) >= 0) {
+            return 0;
+        }
+        {
+            char *g2 = D_001D5F70;
+            if (*(int *)(g2 + 0x154) < 11) {
+                return 0;
+            }
+        }
+        if (*(int *)(d + 8) != 2) {
+            return 0;
+        }
+        if (*(int *)(arg0 + 0x30) & 1) {
+            char *pad = D_0013CA40;
+            p = *(int *)(pad + 0x1B4);
+        } else {
+            char *pad = D_0013CA40;
+            p = *(int *)(pad + 0x1C4);
+        }
+        x = D_0015EF34;
+        *(int *)(arg0 + 0x40) = x;
+        if ((p & 0x1000) && x != 0) {
+            *(int *)(arg0 + 0x40) = x - 1;
+        }
+        if ((p & 0x4000) && *(int *)(arg0 + 0x40) < 4) {
+            *(int *)(arg0 + 0x40) = *(int *)(arg0 + 0x40) + 1;
+        }
+        D_0015EF34 = *(int *)(arg0 + 0x40);
+        if (p & 0x40) {
+            char *d2 = D_0013D390;
+
+            if (*(int *)(d2 + 8) == 2) {
+                if (*(int *)(d2 + 0x20 + D_0015EF34 * 0x1C) >= 0) {
+                    char *g2;
+
+                    func_0022ED80(0, 0x11, *(int *)(arg0 + 0x14));
+                    *(int *)(d2 + 0xC8) = 0;
+                    *(int *)(d2 + 0x14) = *(int *)(arg0 + 0x40);
+                    if (*(int *)(d2 + 0xE4) < 0) {
+                        *(int *)(d2 + 0xE8) = 0;
+                        *(int *)(d2 + 0xE4) = 0xD;
+                    }
+                    g2 = D_001D5F70;
+                    *(int *)(g2 + 0x128) = 1;
+                    *(int *)(g2 + 0x12C) = 0x4FB6;
+                    D_0015FF4C = 0;
+                }
+            }
+        }
+    }
+    if (*(int *)(arg0 + 0x40) != old) {
+        func_0022ED80(1, 0x11, *(int *)(arg0 + 0x14));
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/text", func_00224728);
 

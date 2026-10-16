@@ -63,7 +63,137 @@ extern void func_00201960(int, int, int, int, int);
 extern void func_002023E0(int);
 extern void func_002027C0(int);
 
-INCLUDE_ASM("asm/nonmatchings/text", func_00202AA8);
+extern int func_001F9968(int);
+extern void func_00118D80(int);
+extern int D_0015EF74 MACRO_ADDR;
+extern int func_00122630(void *, short, short, short, short, short, short, short);
+extern int func_00122958(void *, void *);
+extern int func_00120858(int, unsigned short);
+
+typedef struct {
+    int pad0;
+    int pad4;
+    int w;
+    int h;
+    int psm;
+    int cpsm;
+    int pad18;
+    int nmip;
+    char data[1];
+} TexHdr_2AA8;
+
+typedef struct {
+    int caddr;
+    int addr[4];
+    int csize;
+    int size[4];
+    int cbp;
+    int tbp[4];
+    int tbw[4];
+    int tw;
+    int th;
+} TexUp_2AA8;
+
+typedef struct {
+    long w[12];
+} LoadImg_2AA8 __attribute__((aligned(16)));
+
+/* Uploads a texture's CLUT and mip levels into GS memory at the VRAM cursor and builds its TEX0, TEX1 and MIPTBP1 register values. */
+int func_00202AA8(TexHdr_2AA8 *img, long *out)
+{
+    TexUp_2AA8 t;
+    LoadImg_2AA8 li;
+    int i;
+    int n;
+    int cur;
+
+    func_001F99B0(&t, 0, 0x54);
+    switch (img->psm) {
+    case 0:
+    case 2:
+        t.caddr = 0;
+        t.csize = 0;
+        break;
+    case 0x13:
+    case 0x14:
+        t.caddr = (int)img + 0x20;
+        if (img->psm == 0x14) {
+            if (img->cpsm) {
+                t.csize = 0x20;
+            } else {
+                t.csize = 0x40;
+            }
+        } else {
+            if (img->cpsm) {
+                t.csize = 0x200;
+            } else {
+                t.csize = 0x400;
+            }
+        }
+        break;
+    }
+    t.tw = func_001F9968(img->w);
+    t.th = func_001F9968(img->h);
+    t.addr[0] = (int)(&img->data[t.csize]);
+    switch (img->psm) {
+    case 0:
+        t.size[0] = img->w * img->h * 4;
+        break;
+    case 2:
+        t.size[0] = img->w * img->h * 2;
+        break;
+    case 0x13:
+        t.size[0] = img->w * img->h;
+        break;
+    case 0x14:
+        t.size[0] = (img->w * img->h) >> 1;
+        break;
+    }
+    if (img->psm == 0x13 || img->psm == 0x14) {
+        cur = D_0015EF74;
+        t.cbp = cur >> 8;
+        if (img->psm == 0x14) {
+            D_0015EF74 = cur + 0x100;
+            func_00122630(&li, t.cbp, 1, img->cpsm, 0, 0, 8, 2);
+        } else {
+            D_0015EF74 = cur + t.csize;
+            func_00122630(&li, t.cbp, 1, img->cpsm, 0, 0, 0x10, 0x10);
+        }
+        func_00118D80(0);
+        func_00122958(&li, (void *)t.caddr);
+        func_00120858(0, 0);
+    }
+    n = img->nmip;
+    for (i = 1; i < n; i++) {
+        t.size[i] = t.size[i - 1] >> 2;
+        t.addr[i] = t.addr[i - 1] + t.size[i - 1];
+    }
+    for (i = 0; i < img->nmip; i++) {
+        int sz;
+
+        t.tbw[i] = img->w >> (i + 6);
+        if (t.tbw[i] < 1) {
+            t.tbw[i] = 1;
+        }
+        t.tbp[i] = D_0015EF74 >> 8;
+        func_00122630(&li, t.tbp[i], t.tbw[i], img->psm, 0, 0, img->w >> i, img->h >> i);
+        func_00118D80(0);
+        func_00122958(&li, (void *)t.addr[i]);
+        func_00120858(0, 0);
+        sz = t.size[0] >> (i * 2);
+        if (sz < 0x100) {
+            sz = 0x100;
+        }
+        D_0015EF74 += sz;
+    }
+    out[0] = t.tbp[0] | (long)t.tbw[0] << 14 | (long)img->psm << 20 | (long)t.tw << 26
+           | (long)t.th << 30 | (long)1 << 34 | (long)t.cbp << 37 | (long)img->cpsm << 51
+           | (long)4 << 61;
+    out[1] = (long)(img->nmip - 1) << 2 | 0xFFA0000000E0;
+    out[2] = t.tbp[1] | (long)t.tbw[1] << 14 | (long)t.tbp[2] << 20 | (long)t.tbw[2] << 34
+           | (long)t.tbp[3] << 40 | (long)t.tbw[3] << 54;
+    return -1;
+}
 
 LINKER_REMNANT("asm/remnants/text", func_00202EF8);
 
