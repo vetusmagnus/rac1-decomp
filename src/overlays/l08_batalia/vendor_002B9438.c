@@ -1080,7 +1080,121 @@ void func_L08_002D6C58(char *moby, int a1, int count) {
         func_00219780_2D6C58(t50, t60, t70, D_L08_00161964_2D6C58, D_L08_00161968_2D6C58, x1, x2, x3, -1);
     }
 }
-INCLUDE_ASM("asm/overlays", func_L08_002D7010);
+extern char * D_L08_00160058 MACRO_ADDR;
+extern short * D_L08_001AC340[];
+extern int D_L08_0016003C MACRO_ADDR;
+extern char *D_L08_0016016C MACRO_ADDR;
+extern float D_L08_00167500_7010[] __asm__("D_L08_00167500");
+extern void func_001F9EE8(void *, void *, void *);
+extern void func_L05_00319B58(void*,int,void*,void*,int);
+extern float func_001FA850(float, float);
+typedef int u128_7010 __attribute__((mode(TI)));
+typedef struct { char pad0[0x21]; unsigned char group; char pad22[0xDE]; } Blk_7010;
+
+/* Spawns debris mobys while the level counter allows, then scatters or bursts the group's other mobys. */
+void func_L08_002D7010(char *moby) {
+    float a[4];
+    float b[4];
+    float c[4];
+    char *d = *(char **)(moby + 0x78);
+    short *list = D_L08_001AC340[((Blk_7010 *)D_L08_00160058 + *(int *)(d + 0x144))->group];
+    char *other;
+    unsigned short index;
+    int i;
+
+    if (list == 0) return;
+    index = *list & 0x7FFF;
+    other = (char *)((Blk_7010 *)D_L08_00160058 + index);
+    for (i = 0; i < 40 && D_L08_0016003C >= 50; i++) {
+        char *m;
+        if (func_002140B0(0xFF) & 1) m = func_0020D348(0x310); else m = func_0020D348(0x311);
+        if (m != 0) {
+            float ang;
+            *(short *)(m + 0x32) = 0x40;
+            *(unsigned char *)(m + 0x30) = 0xFF;
+            m[0x31] = 1;
+            *(float *)(m + 0x40) = func_00214158_2D6C58();
+            *(float *)(m + 0x44) = func_00214158_2D6C58();
+            *(float *)(m + 0x48) = func_00214158_2D6C58();
+            a[0] = func_002140F8(-1.0f, 1.0f);
+            a[1] = func_002140F8(-1.0f, 1.0f);
+            a[2] = func_002140F8(-1.0f, 1.0f);
+            a[3] = 1.0f;
+            func_001F9EE8(a, a, D_L08_0016016C + (*(int *)(d + 0x148) << 7));
+            qcopy(m + 0x10, a);
+            ang = func_002140F8(-0.2617994f, 0.2617994f);
+            func_001F9BC0(b);
+            c[0] = func_001F9F90(ang) * (D_0015EE6C * 15.0f);
+            c[1] = func_001F9FA8(ang) * (D_0015EE6C * 15.0f);
+            c[2] = 0.0f;
+            c[2] = func_002140F8(D_0015EE6C * 8.0f, D_0015EE6C * 12.0f);
+            func_L05_00319B58(m, (int)moby, c, b, func_001FA898_2D6C58(func_002140F8(60.0f, 90.0f)));
+        }
+    }
+    while (1) {
+        if (*(unsigned char *)(other + 0x20) < 0x7F && other != moby) {
+            unsigned short cls = *(unsigned short *)(other + 0xA6);
+            if ((unsigned short)(cls - 0x24C) < 0xB) {
+                float ang;
+                float lo, hi;
+                ang = func_002140F8(-0.2617994f, 0.2617994f);
+                a[0] = func_001F9F90(ang) * (D_0015EE6C * 15.0f);
+                a[1] = func_001F9FA8(ang) * (D_0015EE6C * 15.0f);
+                a[2] = 0.0f;
+                a[2] = func_002140F8(D_0015EE6C * 8.0f, D_0015EE6C * 12.0f);
+                switch ((short)(*(unsigned short *)(other + 0xA6) - 0x24C)) {
+                case 0:
+                    *(u128_7010 *)c = 0; c[0] = 1.629f; c[1] = -1.341f; c[2] = 11.48f;
+                    qcopy(b, c); break;
+                case 1:
+                    *(u128_7010 *)c = 0; c[0] = 1.299f; c[1] = -5.558f; c[2] = 11.48f;
+                    qcopy(b, c); break;
+                case 2:
+                    *(u128_7010 *)c = 0; c[0] = 0.629f; c[1] = -2.527f; c[2] = 3.409f;
+                    qcopy(b, c); break;
+                case 3:
+                    *(u128_7010 *)c = 0; c[0] = 0.019f; c[1] = -6.19f; c[2] = 3.409f;
+                    qcopy(b, c); break;
+                case 4:
+                    *(u128_7010 *)c = 0; c[0] = 3.196f; c[1] = -2.105f; c[2] = 7.784f;
+                    qcopy(b, c); break;
+                case 5:
+                    *(u128_7010 *)c = 0; c[0] = 2.11f; c[1] = -3.013f; c[2] = 2.625f;
+                    qcopy(b, c); break;
+                case 6:
+                    *(u128_7010 *)c = 0; c[0] = 4.33f; c[1] = -6.449f; c[2] = 7.397f;
+                    qcopy(b, c); break;
+                case 7:
+                    *(u128_7010 *)c = 0; c[0] = 3.286f; c[1] = -6.925f; c[2] = 2.96f;
+                    qcopy(b, c); break;
+                case 8:
+                    *(u128_7010 *)c = 0; c[0] = 1.539f; c[1] = -1.071f; c[2] = 13.144f;
+                    qcopy(b, c); break;
+                case 9:
+                    *(u128_7010 *)c = 0; c[0] = 1.596f; c[1] = -2.512f; c[2] = 8.359f;
+                    qcopy(b, c); break;
+                case 10:
+                    *(u128_7010 *)c = 0; c[0] = 0.885f; c[1] = -5.824f; c[2] = 8.224f;
+                    qcopy(b, c); break;
+                }
+                if (func_001FA850(func_L00_001FF860(a[0], a[1]),
+                                  func_L00_001FF860(D_L08_00167500_7010[0x50] - *(float *)(moby + 0x10),
+                                                    D_L08_00167500_7010[0x51] - *(float *)(moby + 0x14))) < 0.2617994f) {
+                    func_L05_00319B58(other, (int)moby, a, b, func_001FA898_2D6C58(func_002140F8(10.0f, 20.0f)));
+                } else {
+                    func_L05_00319B58(other, (int)moby, a, b, func_001FA898_2D6C58(func_002140F8(30.0f, 45.0f)));
+                }
+            } else if ((short)cls == 0x1D8) {
+                func_001F9BC0(a);
+                func_L00_0025F4A8(other, a, other + 0x10, 0.0f, 0.0f, 0x32, 0x3C, 0x3C, 12.0f, 8.0f, 9.0f, 1.0f, -1, 15.0f, 1, 1, -1, 0);
+                func_0020D678(other);
+            }
+        }
+        if (*list++ < -1) break;
+        index = *list & 0x7FFF;
+        other = (char *)((Blk_7010 *)D_L08_00160058 + index);
+    }
+}
 typedef struct {
     f32 x;
     f32 y;

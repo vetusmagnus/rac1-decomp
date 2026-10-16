@@ -1361,7 +1361,24 @@ void func_0012C4E0(void *arg0) {
 
 INCLUDE_ASM("asm/nonmatchings/core_text", func_0012C608);
 
-INCLUDE_ASM("asm/nonmatchings/core_text", func_0012C8B0);
+static inline int unc3_0012C8B0(int b) {
+    return (b & 0x0FFFFFFF) | 0x20000000;
+}
+
+/* Fill nine words with uncached addresses of three buffers, the last three offset by (w * h / 512) * 0x180 bytes. */
+void func_0012C8B0(int *a0, int *a1, int *a2, int *a3, int *a4, int *a5,
+                   int *a6, int *a7, int *a8, int b0, int b1, int b2,
+                   int w, int h) {
+    *a0 = unc3_0012C8B0(b0);
+    *a1 = unc3_0012C8B0(b1);
+    *a2 = unc3_0012C8B0(b2);
+    *a3 = unc3_0012C8B0(b0);
+    *a4 = unc3_0012C8B0(b1);
+    *a5 = unc3_0012C8B0(b2);
+    *a6 = unc3_0012C8B0(b0 + w * h / 512 * 0x180);
+    *a7 = unc3_0012C8B0(b1 + w * h / 512 * 0x180);
+    *a8 = unc3_0012C8B0(b2 + w * h / 512 * 0x180);
+}
 
 /* _setDefaultQM: tell the callback (type 2) that the default quantiser
    matrix load starts, then with the IPU idle and reset, DMA the matrix

@@ -2159,7 +2159,42 @@ long func_00129CA0(void *s_, void *t_, void *o1_, void *o3_, void *o4_) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/core_text", func_00129E30);
+extern unsigned int D_00132F98[];
+extern long func_00129CA0(void *s, void *t, void *o1, void *o3, void *o4);
+extern void func_0012A7E8(void *arg0, void *arg1);
+
+/* Single-record variant of func_00129F40: decode one record, copy its fields into the object, then convert. */
+void func_00129E30(char *s, char *t) {
+    char *base;
+    int w;
+    long x;
+    long v;
+
+    base = *(char **)(s + 0x858);
+    func_00129CA0(s, t, base + 0x10, base + 0x18, base + 0x20);
+    base = *(char **)(s + 0x858);
+    x = *(long *)(base + 0x20);
+    w = *(int *)(base + 0x10);
+    *(int *)(s + 0x80) = w;
+    v = D_00132F98[(int)(x >> 5) & 0xF];
+    *(int *)(s + 0xCC) = *(int *)(t + 0x5C);
+    *(long *)(s + 0x88) = v;
+    *(int *)(s + 0xD0) = *(int *)(t + 0x60);
+    *(int *)(s + 0xB4) = *(int *)(t + 0x44);
+    *(int *)(s + 0xB8) = *(int *)(t + 0x48);
+    *(int *)(s + 0xBC) = *(int *)(t + 0x4C);
+    *(int *)(s + 0xC0) = *(int *)(t + 0x50);
+    *(int *)(s + 0xC4) = *(int *)(t + 0x54);
+    *(int *)(s + 0xC8) = *(int *)(t + 0x58);
+    if (func_00129948(s, t) == 0) return;
+    if (*(int *)(t + 0x28) != 1) return;
+    if (*(int *)(s + 0xB0) != 0) {
+        func_0012A7E8(s, t);
+    } else {
+        func_001299E8((void *)s, (void *)t);
+    }
+    func_00129C78(s);
+}
 
 extern long func_00129CA0(void *s, void *t, void *o1, void *o3, void *o4);
 extern void func_0012A7E8(void *arg0, void *arg1);
