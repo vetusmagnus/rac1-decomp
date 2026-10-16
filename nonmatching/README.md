@@ -353,7 +353,6 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_L06_002D9B08`](functional/func_L06_002D9B08.c) | functional | 1116 | ? | - |
 | [`func_L06_002EB2F8`](l06_blarg/func_L06_002EB2F8.c) | l06_blarg | 80 | SIZE ours 96 / retail 100 | - |
 | [`func_L06_002F3680`](shared/func_L06_002F3680.c) | shared | 1724 | SIZE ours 1740 / retail 1724 | - |
-| [`func_L06_002F4058`](shared/func_L06_002F4058.c) | shared | 1732 | SIZE ours 1700 / retail 1732 | - |
 | [`func_L06_002F78A0`](l06_blarg/func_L06_002F78A0.c) | l06_blarg | 2396 | SIZE ours 2336 / retail 2396 | - |
 | [`func_L06_003006F8`](shared/func_L06_003006F8.c) | shared | 952 | SIZE ours 936 / retail 952 | - |
 | [`func_L06_00303858`](l06_blarg/func_L06_00303858.c) | l06_blarg | 348 | SIZE ours 352 / retail 348 | - |
@@ -375,7 +374,6 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_L10_002F6F18`](shared/func_L10_002F6F18.c) | shared | 960 | SIZE ours 968 / retail 960 | - |
 | [`func_L11_0031A738`](functional/func_L11_0031A738.c) | functional | 932 | ? | - |
 | [`func_L12_002677B4`](functional/func_L12_002677B4.c) | functional | 216 | ? | - |
-| [`func_L12_002E43A8`](l12_hoven/func_L12_002E43A8.c) | l12_hoven | 900 | SIZE ours 924 / retail 900 | - |
 | [`func_L12_002E8640`](functional/func_L12_002E8640.c) | functional | 3872 | ? | - |
 | [`func_L12_002EB2E8`](functional/func_L12_002EB2E8.c) | functional | 3732 | ? | - |
 | [`func_L12_00307DB0`](functional/func_L12_00307DB0.c) | functional | 3328 | ? | - |
@@ -396,7 +394,6 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_L15_0029E8A0`](shared/func_L15_0029E8A0.c) | shared | 4920 | SIZE ours 4916 / retail 4920 | - |
 | [`func_L15_002A4318`](functional/func_L15_002A4318.c) | functional | 1184 | ? | - |
 | [`func_L15_002A8090`](functional/func_L15_002A8090.c) | functional | 1980 | ? | - |
-| [`func_L15_002D2398`](l15_quartu/func_L15_002D2398.c) | l15_quartu | 1172 | SIZE ours 1196 / retail 1172 | - |
 | [`func_L15_002D7C00`](functional/func_L15_002D7C00.c) | functional | 4012 | ? | - |
 | [`func_L15_002ED3C4`](l15_quartu/func_L15_002ED3C4.c) | l15_quartu | 92 | SIZE ours 84 / retail 92 | - |
 | [`func_L18_002EBBF0`](l18_veldin2/func_L18_002EBBF0.c) | l18_veldin2 | 1236 | SIZE ours 1200 / retail 1236 | - |
