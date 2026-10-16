@@ -342,7 +342,6 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_L05_0023BA18`](functional/func_L05_0023BA18.c) | functional | 76 | ? | - |
 | [`func_L05_00254838`](shared/func_L05_00254838.c) | shared | 768 | SIZE ours 764 / retail 768 | - |
 | [`func_L05_00263500`](functional/func_L05_00263500.c) | functional | 1012 | ? | - |
-| [`func_L05_002638F8`](shared/func_L05_002638F8.c) | shared | 1700 | SIZE ours 1668 / retail 1700 | - |
 | [`func_L05_00266D10`](functional/func_L05_00266D10.c) | functional | 908 | ? | - |
 | [`func_L05_002D28D0`](functional/func_L05_002D28D0.c) | functional | 1960 | ? | - |
 | [`func_L05_0030D678`](functional/func_L05_0030D678.c) | functional | 908 | ? | - |
@@ -363,12 +362,10 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_L07_00313D28`](l07_umbris/func_L07_00313D28.c) | l07_umbris | 1148 | SIZE ours 1120 / retail 1148 | - |
 | [`func_L08_00211A38`](functional/func_L08_00211A38.c) | functional | 48 | ? | - |
 | [`func_L08_00259040`](functional/func_L08_00259040.c) | functional | 116 | ? | - |
-| [`func_L08_002D36F8`](l08_batalia/func_L08_002D36F8.c) | l08_batalia | 1792 | SIZE ours 1760 / retail 1792 | - |
 | [`func_L08_002D55E0`](functional/func_L08_002D55E0.c) | functional | 2504 | ? | - |
 | [`func_L08_002D7010`](functional/func_L08_002D7010.c) | functional | 1860 | ? | - |
 | [`func_L08_002DBF68`](functional/func_L08_002DBF68.c) | functional | 3480 | ? | - |
 | [`func_L08_002DF758`](l08_batalia/func_L08_002DF758.c) | l08_batalia | 324 | SIZE ours 320 / retail 324 | - |
-| [`func_L08_002DF8A0`](l08_batalia/func_L08_002DF8A0.c) | l08_batalia | 800 | SIZE ours 784 / retail 800 | - |
 | [`func_L08_002EB770`](l08_batalia/func_L08_002EB770.c) | l08_batalia | 524 | SIZE ours 508 / retail 524 | - |
 | [`func_L08_002F7318`](l08_batalia/func_L08_002F7318.c) | l08_batalia | 4676 | SIZE ours 4668 / retail 4676 | - |
 | [`func_L08_00303998`](shared/func_L08_00303998.c) | shared | 1440 | SIZE ours 1456 / retail 1440 | - |
@@ -393,7 +390,6 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_L14_00302C80`](functional/func_L14_00302C80.c) | functional | 1516 | ? | - |
 | [`func_L14_00303270`](shared/func_L14_00303270.c) | shared | 444 | SIZE ours 448 / retail 444 | - |
 | [`func_L14_00303430`](functional/func_L14_00303430.c) | functional | 1424 | ? | - |
-| [`func_L14_00316388`](l14_oltanis/func_L14_00316388.c) | l14_oltanis | 908 | SIZE ours 892 / retail 908 | - |
 | [`func_L14_00316E60`](l14_oltanis/func_L14_00316E60.c) | l14_oltanis | 880 | SIZE ours 864 / retail 880 | - |
 | [`func_L15_001FFED0`](functional/func_L15_001FFED0.c) | functional | 1060 | ? | - |
 | [`func_L15_0029B1D8`](functional/func_L15_0029B1D8.c) | functional | 48 | ? | - |

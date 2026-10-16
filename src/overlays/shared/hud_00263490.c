@@ -29,7 +29,173 @@ void func_L05_00263490(HudElemX *e) {
     func_L00_00236610(e);
 }
 INCLUDE_ASM("asm/overlays", func_L05_00263500);
-INCLUDE_ASM("asm/overlays", func_L05_002638F8);
+extern int func_00116248_002670A0(char *, const char *, ...) __asm__("func_00116248");
+extern float func_001FA888(int);
+extern int func_001F9850(int);
+extern int func_001FA8A8(int, int, float);
+extern int func_001FA898_r(float) __asm__("func_001FA898");
+extern int func_001F6FD8_x(int, int, u64, int, int) __asm__("func_001F6FD8");
+extern char *func_001FE540_002670A0(int) __asm__("func_001FE540");
+extern void func_00201A38(int, int, int, int);
+extern int func_L00_00236400(void *rec, int *x, int *y);
+extern int func_00200198(int, int);
+extern void func_L00_0023C058(int, int, int, int, int, int);
+extern void func_00200468(int, int, int, int, int, int);
+extern float func_001F9FA8(float);
+extern char D_0013E633[];
+extern char D_L05_0015F940[];
+extern char D_L05_0015F9B0[];
+extern char D_L05_0015F9B8[];
+extern char D_L05_0015F9C0[];
+extern char D_L05_00216FC0[];
+extern int D_L05_0017EA18[];
+extern int D_L05_0015FB98 MACRO_ADDR;
+extern int D_L05_0015FB90 MACRO_ADDR;
+extern int D_L05_0015FBA4 MACRO_ADDR;
+extern int D_L05_0015FBA0 MACRO_ADDR;
+extern int D_L05_0015FB9C MACRO_ADDR;
+extern int D_L05_0015FBA8 MACRO_ADDR;
+extern int D_L05_0015FBB8 MACRO_ADDR;
+extern int D_L05_0015FB8C MACRO_ADDR;
+extern int D_L05_0015F6B0 MACRO_ADDR;
+extern short D_L05_0015F95C;
+extern short D_L05_0015F980;
+extern short D_L05_0015F974;
+extern short D_L05_0015F978;
+extern short D_L05_0015F994;
+extern short D_L05_0015F998;
+extern short D_L05_0015F99C;
+extern short D_L05_0015F9A0;
+extern short D_L05_0015F9A4;
+extern short D_L05_0015F9A8;
+extern short D_L05_0015F984;
+extern short D_L05_0015F988;
+extern short D_L05_0015F98C;
+extern short D_L05_0015F990;
+
+/* HUD element update: draws the level 5 challenge readouts and the progress bar; returns the element's width. */
+int func_L05_002638F8(char *a) {
+    unsigned char *u = (unsigned char *)(a + 0x70);
+    char buf[0x80];
+    int out[4];
+    int xa, xb;
+    float f20, f21, f0, f12;
+    char *E;
+    int r, sel, cnt, k, idx, h, acc, id, id2, i, s16, r3, t;
+
+    f21 = (float)u[0] / 10.0f;
+    if (f21 > 1.0f) {
+        f21 = 1.0f;
+    }
+    E = D_0013E633 + 0xE1D;
+    if (*(int *)(E + 0x208C) != 0x16) {
+        return *(int *)(a + 0x58);
+    }
+    if (u[2] != 0) {
+        func_00116248_002670A0(buf, D_L05_0015F940, D_L05_0015FB8C * 0x168);
+        f20 = func_001FA888(u[1]);
+        r = func_001F9850(*(int *)&D_L05_0015F95C);
+        f12 = f20 / (float)r;
+        if (u[2] == 1 || u[2] == 3) {
+            acc = func_001FA8A8(*(int *)&D_L05_0015F974, *(int *)&D_L05_0015F978, f12);
+        } else {
+            acc = *(int *)&D_L05_0015F980;
+        }
+        h = func_001FA898_r(f21 * 128.0f) << 24;
+        acc += h;
+        if (u[2] == 1 || u[2] == 2) {
+            func_001F6FD8_x(*(int *)&D_L05_0015F994 + 1, *(int *)&D_L05_0015F998 + 1, h, (int)buf, -1);
+            func_001F6FD8_x(*(int *)&D_L05_0015F994, *(int *)&D_L05_0015F998, acc, (int)buf, -1);
+            func_00116248_002670A0(buf, D_L05_0015F9B0, D_L05_0015FB90,
+                                   func_001FE540_002670A0(D_L05_0015FB90 == 1 ? 0x517C : 0x517D));
+            func_001F6FD8_x(*(int *)&D_L05_0015F99C + 1, *(int *)&D_L05_0015F9A0 + 1, h, (int)buf, -1);
+            func_001F6FD8_x(*(int *)&D_L05_0015F99C, *(int *)&D_L05_0015F9A0, acc, (int)buf, -1);
+        } else if (u[2] == 3) {
+            sel = -1;
+            if (D_L05_0015FB90 == 3) {
+                sel = 0;
+                if (D_L05_0015FBA4 != 0) {
+                    sel = 2;
+                    if (D_L05_0015FBA0 == 0) {
+                        sel = 1;
+                    } else if (D_L05_0015FB9C != 0) {
+                        sel = 3;
+                    }
+                }
+            } else if (D_L05_0015FB90 == 4) {
+                sel = 4;
+            }
+            if (sel >= 0) {
+                if (D_L05_0015FB8C >= 4) {
+                    k = 2;
+                } else {
+                    k = D_L05_0015FB8C >= 2;
+                }
+                idx = sel + k * 5;
+                D_L05_0015FBA8 = idx;
+                D_L05_0015FBB8 = D_L05_0017EA18[idx];
+                cnt = 1;
+                for (i = 1; i < 4; i++) {
+                    if ((&D_L05_0015FBA8)[i] == D_L05_0015FBA8) {
+                        cnt++;
+                    }
+                }
+                D_L05_0015FBB8 = D_L05_0015FBB8 / cnt;
+                func_00116248_002670A0(buf, D_L05_0015F940, D_L05_0015FBB8);
+                func_00201A38(*(int *)&D_L05_0015F9A4, *(int *)&D_L05_0015F9A8 - 0x18, acc, (int)buf);
+                func_00116248_002670A0(buf, D_L05_0015F9B8, func_001FE540_002670A0(idx + 0x5092));
+                func_00201A38(*(int *)&D_L05_0015F9A4, *(int *)&D_L05_0015F9A8, acc, (int)buf);
+            } else if (D_L05_0015FB90 > 0) {
+                int n = 0;
+                int m;
+                for (m = 0; m < 4 && n < D_L05_0015FB90; m++) {
+                    if ((&D_L05_0015FB98)[m] != 0) {
+                        out[n] = m;
+                        n++;
+                    }
+                }
+                if (D_L05_0015FB90 == 1) {
+                    D_L05_0015FBB8 = D_L05_0015FB8C * 10;
+                    func_00116248_002670A0(buf, D_L05_0015F940, D_L05_0015FBB8);
+                    func_00201A38(*(int *)&D_L05_0015F9A4, *(int *)&D_L05_0015F9A8 - 0x18, acc, (int)buf);
+                    func_00116248_002670A0(buf, D_L05_0015F9C0, func_001FE540_002670A0(out[0] + 0x5183), D_L05_0015FB8C,
+                                           func_001FE540_002670A0(D_L05_0015FB8C == 0x168 ? 0x50A7 : 0x50A8));
+                    func_00201A38(*(int *)&D_L05_0015F9A4, *(int *)&D_L05_0015F9A8, acc, (int)buf);
+                } else {
+                    D_L05_0015FBB8 = D_L05_0015FB8C * 20;
+                    func_00116248_002670A0(buf, D_L05_0015F940, D_L05_0015FBB8);
+                    func_00201A38(*(int *)&D_L05_0015F9A4, *(int *)&D_L05_0015F9A8 - 0x18, acc, (int)buf);
+                    func_00116248_002670A0(buf, D_L05_00216FC0, func_001FE540_002670A0(out[0] + 0x5183),
+                                           func_001FE540_002670A0(out[1] + 0x5183), D_L05_0015FB8C);
+                    func_00201A38(*(int *)&D_L05_0015F9A4, *(int *)&D_L05_0015F9A8, acc, (int)buf);
+                }
+            }
+        }
+    }
+
+    xa = *(int *)(a + 0x50);
+    xb = *(int *)(a + 0x54);
+    *(int *)(a + 0x58) = 0x100;
+    *(int *)(a + 0x5C) = 0x40;
+    func_L00_00236400(a, &xa, &xb);
+    s16 = (*(int *)(a + 0x74) * 0xDD) / *(int *)(a + 0x8) + 0x1B;
+    id = func_00200198(0x7558, 1);
+    func_L00_0023C058(id, xa, xb, s16, 0x40, 0x80);
+    id2 = func_00200198(0x7558, 0);
+    func_00200468(id2, xa, xb, 0x100, 0x40, 0x80);
+    E = D_0013E633 + 0xE1D;
+    t = (unsigned char)E[0x8AE];
+    if (func_001F9850(0x78) < t) {
+        r3 = func_001F9850(0x3C);
+        f0 = func_001FA888(D_L05_0015F6B0 % r3) / (float)r3;
+        f0 = func_001F9FA8(f0 * 6.283180236816406f - 3.141590118408203f);
+        r3 = func_001FA8A8(*(int *)&D_L05_0015F98C, *(int *)&D_L05_0015F990, f0 * 0.5f + 0.5f);
+        func_00116248_002670A0(buf, func_001FE540_002670A0(0x531F));
+        func_00201A38(*(int *)&D_L05_0015F984 + 1, *(int *)&D_L05_0015F988 + 1, 0x80000000, (int)buf);
+        func_00201A38(*(int *)&D_L05_0015F984, *(int *)&D_L05_0015F988, r3, (int)buf);
+    }
+    return *(int *)(a + 0x58);
+}
 extern void func_001FFDA0(int arg0, int arg1);
 extern int D_L05_0015FA58 MACRO_ADDR;
 extern int D_L05_0015FA54 MACRO_ADDR;
