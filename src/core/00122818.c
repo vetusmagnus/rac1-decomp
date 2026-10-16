@@ -99,7 +99,73 @@ extern int func_00121040(int);
 extern int D_001325C0;
 extern char D_00132E40[];
 
-INCLUDE_ASM("asm/nonmatchings/core_text", func_00122818);
+typedef int u128 __attribute__((mode(TI)));
+
+typedef struct {
+    unsigned long nloop : 15;
+    unsigned long eop : 1;
+    unsigned long pad16 : 16;
+    unsigned long id : 14;
+    unsigned long pre : 1;
+    unsigned long prim : 11;
+    unsigned long flg : 2;
+    unsigned long nreg : 4;
+    unsigned long regs0 : 4;
+    unsigned long regs1 : 4;
+    unsigned long regs2 : 4;
+    unsigned long regs3 : 4;
+    unsigned long regs4 : 4;
+    unsigned long regs5 : 4;
+    unsigned long regs6 : 4;
+    unsigned long regs7 : 4;
+    unsigned long regs8 : 4;
+    unsigned long regs9 : 4;
+    unsigned long regs10 : 4;
+    unsigned long regs11 : 4;
+    unsigned long regs12 : 4;
+    unsigned long regs13 : 4;
+    unsigned long regs14 : 4;
+    unsigned long regs15 : 4;
+} GifTag_122818;
+
+typedef struct {
+    unsigned int w0, w4, w8, wC;
+    GifTag_122818 giftag;
+    long bitbltbuf, bitbltbufaddr;
+    long trxpos, trxposaddr;
+    long trxreg, trxregaddr;
+    long finish, finishaddr;
+    long trxdir, trxdiraddr;
+} StoreImage_122818;
+
+/* Fills a GS store-image packet: DMA/VIF words, a 5-register A+D giftag, then BITBLTBUF/TRXPOS/TRXREG/FINISH/TRXDIR; returns 7. */
+int func_00122818_r(StoreImage_122818 *p, short sbp, short sbw, short spsm,
+                    short x, short y, short w, short h) __asm__("func_00122818");
+int func_00122818_r(StoreImage_122818 *p, short sbp, short sbw, short spsm,
+                    short x, short y, short w, short h) {
+    long t = (long)(y << 16);
+    p->w0 = 0;
+    p->w4 = 0x06008000;
+    p->w8 = 0x13000000;
+    p->wC = 0x50000006;
+    *(u128 *)&p->giftag = 0;
+    p->giftag.nloop = 5;
+    p->giftag.eop = 1;
+    p->giftag.nreg = 1;
+    p->giftag.regs0 = 0xE;
+    p->bitbltbuf = (long)sbp | (long)(sbw << 16) | ((long)spsm << 24);
+    p->bitbltbufaddr = 0x50;
+    p->trxpos = (long)x | t;
+    p->trxposaddr = 0x51;
+    p->trxreg = (long)w | ((long)h << 32);
+    p->trxregaddr = 0x52;
+    p->finish = 0;
+    p->finishaddr = 0x61;
+    p->trxdir = 1;
+    p->trxdiraddr = 0x53;
+    __asm__ __volatile__("sync");
+    return 7;
+}
 
 extern void func_0011A6C8(void *);
 extern char D_001532D0[];

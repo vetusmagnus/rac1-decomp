@@ -44,13 +44,11 @@ Each file is the best attempt so far at a level function that isn't exact yet.
 | [`func_00121750`](core/func_00121750.c) | core | 0 | ? | - |
 | [`func_00121DC8`](core/func_00121DC8.c) | core | 0 | ? | - |
 | [`func_00122630`](core/func_00122630.c) | core | 0 | ? | - |
-| [`func_00122818`](functional/func_00122818.c) | functional | 0 | ? | - |
 | [`func_00125358`](core/func_00125358.c) | core | 0 | ? | - |
 | [`func_00125F88`](functional/func_00125F88.c) | functional | 0 | ? | - |
 | [`func_00129690`](functional/func_00129690.c) | functional | 0 | ? | - |
 | [`func_00129CA0`](core/func_00129CA0.c) | core | 0 | ? | - |
 | [`func_00129E30`](functional/func_00129E30.c) | functional | 0 | ? | - |
-| [`func_0012A558`](functional/func_0012A558.c) | functional | 0 | ? | - |
 | [`func_0012A7E8`](functional/func_0012A7E8.c) | functional | 0 | ? | - |
 | [`func_0012AAA8`](core/func_0012AAA8.c) | core | 0 | ? | - |
 | [`func_0012AC80`](core/func_0012AC80.c) | core | 0 | ? | - |
