@@ -1,12 +1,12 @@
 {
  "measures": {
-  "fuzzy_match_percent": 90.06072116845256,
+  "fuzzy_match_percent": 90.2536748574125,
   "total_code": "3712808",
-  "matched_code": "3309140",
-  "matched_code_percent": 89.12768987784986,
+  "matched_code": "3316304",
+  "matched_code_percent": 89.3206435668098,
   "total_functions": 5109,
-  "matched_functions": 4615,
-  "matched_functions_percent": 90.33078880407125,
+  "matched_functions": 4618,
+  "matched_functions_percent": 90.3895087101194,
   "complete_code": "749496",
   "complete_code_percent": 20.18676969021829,
   "total_units": 141,
@@ -18287,13 +18287,13 @@
   {
    "name": "Shared level code",
    "measures": {
-    "fuzzy_match_percent": 81.3310062400677,
+    "fuzzy_match_percent": 81.58653917783028,
     "total_code": "1200628",
-    "matched_code": "955920",
-    "matched_code_percent": 79.6183330723588,
+    "matched_code": "958988",
+    "matched_code_percent": 79.87386601012138,
     "total_functions": 1980,
-    "matched_functions": 1695,
-    "matched_functions_percent": 85.60606060606061,
+    "matched_functions": 1696,
+    "matched_functions_percent": 85.65656565656566,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -31416,7 +31416,7 @@
     {
      "name": "func_L00_002D4EC0",
      "size": "3068",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "958776",
      "metadata": {
       "virtual_address": "2969280"
@@ -39409,13 +39409,13 @@
   {
    "name": "Level 06: Blarg Station (Nebula G34)",
    "measures": {
-    "fuzzy_match_percent": 95.94670614359734,
+    "fuzzy_match_percent": 97.26720947446336,
     "total_code": "135100",
-    "matched_code": "129624",
-    "matched_code_percent": 95.94670614359734,
+    "matched_code": "131408",
+    "matched_code_percent": 97.26720947446336,
     "total_functions": 88,
-    "matched_functions": 83,
-    "matched_functions_percent": 94.31818181818181,
+    "matched_functions": 84,
+    "matched_functions_percent": 95.45454545454545,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -39713,7 +39713,7 @@
     {
      "name": "func_L06_002F71A8",
      "size": "1784",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "919152",
      "metadata": {
       "virtual_address": "3109288"
@@ -46600,13 +46600,13 @@
   {
    "name": "Level 15: Quartu",
    "measures": {
-    "fuzzy_match_percent": 96.81995506269479,
+    "fuzzy_match_percent": 98.91461332173661,
     "total_code": "110376",
-    "matched_code": "102076",
-    "matched_code_percent": 92.4802493295644,
+    "matched_code": "104388",
+    "matched_code_percent": 94.57490758860622,
     "total_functions": 49,
-    "matched_functions": 46,
-    "matched_functions_percent": 93.87755102040816,
+    "matched_functions": 47,
+    "matched_functions_percent": 95.91836734693878,
     "complete_code": "0",
     "complete_code_percent": 0.0,
     "total_units": 1,
@@ -46958,7 +46958,7 @@
     {
      "name": "func_L15_002EDB50",
      "size": "2312",
-     "fuzzy_match_percent": 0.0,
+     "fuzzy_match_percent": 100.0,
      "address": "954512",
      "metadata": {
       "virtual_address": "3070800"
@@ -49711,13 +49711,13 @@
    "id": "level_code",
    "name": "Level code",
    "measures": {
-    "fuzzy_match_percent": 91.08725858209829,
+    "fuzzy_match_percent": 91.30788567549956,
     "total_code": "3247108",
-    "matched_code": "2923144",
-    "matched_code_percent": 90.02299892704524,
+    "matched_code": "2930308",
+    "matched_code_percent": 90.2436260204465,
     "total_functions": 3429,
-    "matched_functions": 3092,
-    "matched_functions_percent": 90.17206182560513,
+    "matched_functions": 3095,
+    "matched_functions_percent": 90.25955088947215,
     "complete_code": "548116",
     "complete_code_percent": 16.880128409649448
    }
@@ -49756,13 +49756,13 @@
    "id": "common",
    "name": "Shared level code",
    "measures": {
-    "fuzzy_match_percent": 81.3310062400677,
+    "fuzzy_match_percent": 81.58653917783028,
     "total_code": "1200628",
-    "matched_code": "955920",
-    "matched_code_percent": 79.6183330723588,
+    "matched_code": "958988",
+    "matched_code_percent": 79.87386601012138,
     "total_functions": 1980,
-    "matched_functions": 1695,
-    "matched_functions_percent": 85.60606060606061,
+    "matched_functions": 1696,
+    "matched_functions_percent": 85.65656565656566,
     "complete_code": "0",
     "complete_code_percent": 0.0
    }
@@ -49771,13 +49771,13 @@
    "id": "levels",
    "name": "Level-specific code",
    "measures": {
-    "fuzzy_match_percent": 96.81105248035652,
+    "fuzzy_match_percent": 97.0112010281068,
     "total_code": "2046480",
-    "matched_code": "1967224",
-    "matched_code_percent": 96.12720378405848,
+    "matched_code": "1971320",
+    "matched_code_percent": 96.32735233180877,
     "total_functions": 1449,
-    "matched_functions": 1397,
-    "matched_functions_percent": 96.41131815044858,
+    "matched_functions": 1399,
+    "matched_functions_percent": 96.54934437543133,
     "complete_code": "548116",
     "complete_code_percent": 26.783354833665612
    }
@@ -49876,13 +49876,13 @@
    "id": "level_06",
    "name": "Level 06: Blarg Station (Nebula G34)",
    "measures": {
-    "fuzzy_match_percent": 95.94670614359734,
+    "fuzzy_match_percent": 97.26720947446336,
     "total_code": "135100",
-    "matched_code": "129624",
-    "matched_code_percent": 95.94670614359734,
+    "matched_code": "131408",
+    "matched_code_percent": 97.26720947446336,
     "total_functions": 88,
-    "matched_functions": 83,
-    "matched_functions_percent": 94.31818181818181,
+    "matched_functions": 84,
+    "matched_functions_percent": 95.45454545454545,
     "complete_code": "0",
     "complete_code_percent": 0.0
    }
@@ -50011,13 +50011,13 @@
    "id": "level_15",
    "name": "Level 15: Quartu",
    "measures": {
-    "fuzzy_match_percent": 96.81995506269479,
+    "fuzzy_match_percent": 98.91461332173661,
     "total_code": "110376",
-    "matched_code": "102076",
-    "matched_code_percent": 92.4802493295644,
+    "matched_code": "104388",
+    "matched_code_percent": 94.57490758860622,
     "total_functions": 49,
-    "matched_functions": 46,
-    "matched_functions_percent": 93.87755102040816,
+    "matched_functions": 47,
+    "matched_functions_percent": 95.91836734693878,
     "complete_code": "0",
     "complete_code_percent": 0.0
    }
